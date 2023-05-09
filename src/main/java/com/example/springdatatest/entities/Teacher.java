@@ -1,9 +1,10 @@
-package com.example.springdatatest.entity;
+package com.example.springdatatest.entities;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity(name = "teachers")
+@Entity
+@Table(name = "teachers")
 public class Teacher {
 
     @Id
@@ -15,10 +16,6 @@ public class Teacher {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {
