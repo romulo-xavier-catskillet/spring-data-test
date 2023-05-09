@@ -7,6 +7,14 @@ import java.util.UUID;
 @Table(name = "teachers")
 public class Teacher {
 
+    public Teacher(){}
+
+    public Teacher(String name)
+    {
+        this.name = name;
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
