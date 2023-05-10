@@ -1,5 +1,6 @@
 package com.example.springdatatest;
 
+import com.example.springdatatest.entities.Teacher;
 import com.example.springdatatest.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
