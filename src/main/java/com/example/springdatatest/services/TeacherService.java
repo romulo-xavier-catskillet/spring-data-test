@@ -3,9 +3,7 @@ package com.example.springdatatest.services;
 import com.example.springdatatest.entities.Teacher;
 import com.example.springdatatest.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.Scanner;
-import java.util.UUID;
 
 @Service
 public class TeacherService {
@@ -28,6 +26,8 @@ public class TeacherService {
             System.out.println("0 - Voltar ao menu anterior");
             System.out.println("1 - Cadastrar novo professor");
             System.out.println("2 - Atualizar professor");
+            System.out.println("3 - Visualizar todos os professores");
+            System.out.println("4 - Deletar um professor");
 
             int option = scanner.nextInt();
 
@@ -43,6 +43,22 @@ public class TeacherService {
                 this.teacher = this.update(scanner, this.teacher);
             }
 
+            if (option == 3) {
+                this.getAll();
+            }
+
+            if (option == 4) {
+                this.delete(scanner);
+            }
+
+        }
+    }
+
+    private void getAll()
+    {
+        Iterable<Teacher> teachersIterable = this.teacherRepository.findAll();
+        for (Teacher teacher : teachersIterable) {
+            System.out.println(teacher);
         }
     }
 
@@ -73,5 +89,17 @@ public class TeacherService {
         System.out.println("Professor foi atualizado no banco de dados.");
 
         return teacher;
+    }
+
+    private void delete(Scanner scanner)
+    {
+        try {
+            System.out.println("Digite o ID do professor");
+            Long idTeacher = scanner.nextLong();
+            Teacher teacher = this.teacherRepository.findById(idTeacher).get();
+            this.teacherRepository.delete(teacher);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 }
