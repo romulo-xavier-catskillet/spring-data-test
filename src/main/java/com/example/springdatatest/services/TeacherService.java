@@ -1,11 +1,15 @@
 package com.example.springdatatest.services;
 
+import com.example.springdatatest.entities.Discipline;
 import com.example.springdatatest.entities.Teacher;
 import com.example.springdatatest.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.Scanner;
 
 @Service
+@Transactional
 public class TeacherService {
 
     private TeacherRepository teacherRepository;
@@ -28,6 +32,7 @@ public class TeacherService {
             System.out.println("2 - Atualizar professor");
             System.out.println("3 - Visualizar todos os professores");
             System.out.println("4 - Deletar um professor");
+            System.out.println("5 - visualizar um professor específico");
 
             int option = scanner.nextInt();
 
@@ -51,6 +56,10 @@ public class TeacherService {
                 this.delete(scanner);
             }
 
+            if (option == 5) {
+                this.getTeacherById(scanner);
+            }
+
         }
     }
 
@@ -60,6 +69,28 @@ public class TeacherService {
         for (Teacher teacher : teachersIterable) {
             System.out.println(teacher);
         }
+    }
+
+    private void getTeacherById(Scanner scanner)
+    {
+        System.out.println("Digite o ID do professor que deseja pesquisar");
+        Long teacherId = scanner.nextLong();
+
+        Teacher teacher = this.teacherRepository.findById(teacherId).get();
+
+        System.out.println("Professor: {");
+        System.out.println("Professor: " + teacher.getId());
+        System.out.println("Professor: " + teacher.getName());
+        System.out.println("Disciplinas: [");
+
+        for (Discipline discipline: teacher.getDisciplineList()) {
+            System.out.println("\tID: " + discipline.getId());
+            System.out.println("\tname: " + discipline.getName());
+            System.out.println("\tcode: " + discipline.getCode() + "\n");
+        }
+
+        System.out.println("]\n}");
+
     }
 
     private Teacher store(Scanner scanner)
@@ -81,7 +112,7 @@ public class TeacherService {
     {
 
         if (teacher == null) {
-            System.out.println("Digite o ID da disciplina que deseja atualizar");
+            System.out.println("Digite o ID do professor que deseja atualizar");
             Long teacherId = scanner.nextLong();
             teacher = this.teacherRepository.findById(teacherId).get();
         }
