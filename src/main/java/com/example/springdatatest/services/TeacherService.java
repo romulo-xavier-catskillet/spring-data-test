@@ -79,6 +79,13 @@ public class TeacherService {
 
     private Teacher update(Scanner scanner, Teacher teacher)
     {
+
+        if (teacher == null) {
+            System.out.println("Digite o ID da disciplina que deseja atualizar");
+            Long teacherId = scanner.nextLong();
+            teacher = this.teacherRepository.findById(teacherId).get();
+        }
+
         System.out.println("Digite o nome do professor para atualizar");
         String name = scanner.next();
 
