@@ -1,7 +1,7 @@
 package com.example.springdatatest.entities;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -17,6 +17,9 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Discipline> disciplineList;
 
     @Column(nullable = false)
     private String name;
