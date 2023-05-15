@@ -1,6 +1,7 @@
 package com.example.springdatatest.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "disciplines")
@@ -29,6 +30,10 @@ public class Discipline {
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = true)
     private Teacher teacher;
+
+    @ManyToMany
+    @JoinTable(name = "disciplines_students", joinColumns = @JoinColumn(name = "discipline_fk"), inverseJoinColumns = @JoinColumn(name = "studant_fk"))
+    private List<Student> studentList;
 
     public Long getId() {
         return id;
