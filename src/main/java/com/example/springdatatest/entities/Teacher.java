@@ -21,7 +21,7 @@ public class Teacher {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Discipline> disciplineList;
 
     public Long getId() {
@@ -48,12 +48,21 @@ public class Teacher {
         this.disciplineList = disciplineList;
     }
 
+    @PreRemove
+    public void updateDisciplinesOnRemove()
+    {
+        System.out.println("***** updateDisciplinesOnRemove *****");
+        for (Discipline discipline: this.getDisciplineList()) {
+            discipline.setTeacher(null);
+        }
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", disciplineList=" + disciplineList +
-                '}';
+                "}";
     }
 }

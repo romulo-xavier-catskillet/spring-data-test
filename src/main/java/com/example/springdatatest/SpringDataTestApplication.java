@@ -36,9 +36,10 @@ public class SpringDataTestApplication implements CommandLineRunner {
 			System.out.println("0 - Sair");
 			System.out.println("1 - Teacher");
 			System.out.println("2 - Discipline");
-			int opcao = scanner.nextInt();
 
-			switch (opcao) {
+			int option = scanner.nextInt();
+
+			switch (option) {
 				case 1:
 					this.teacherService.menu(scanner);
 					break;

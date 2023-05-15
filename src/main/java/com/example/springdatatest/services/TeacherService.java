@@ -4,8 +4,8 @@ import com.example.springdatatest.entities.Discipline;
 import com.example.springdatatest.entities.Teacher;
 import com.example.springdatatest.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Scanner;
 
 @Service
@@ -65,9 +65,9 @@ public class TeacherService {
 
     private void getAll()
     {
-        Iterable<Teacher> teachersIterable = this.teacherRepository.findAll();
-        for (Teacher teacher : teachersIterable) {
-            System.out.println(teacher);
+        List<Teacher> teacherList = this.teacherRepository.findAll();
+        for (Teacher teacher : teacherList) {
+            System.out.println(teacher.toString());
         }
     }
 
@@ -79,8 +79,8 @@ public class TeacherService {
         Teacher teacher = this.teacherRepository.findById(teacherId).get();
 
         System.out.println("Professor: {");
-        System.out.println("Professor: " + teacher.getId());
-        System.out.println("Professor: " + teacher.getName());
+        System.out.println("Professor ID: " + teacher.getId());
+        System.out.println("Nome do Professor: " + teacher.getName());
         System.out.println("Disciplinas: [");
 
         for (Discipline discipline: teacher.getDisciplineList()) {
@@ -110,23 +110,27 @@ public class TeacherService {
 
     private Teacher update(Scanner scanner, Teacher teacher)
     {
+        try {
+            if (teacher == null) {
+                System.out.println("Digite o ID do professor que deseja atualizar");
+                Long teacherId = scanner.nextLong();
+                teacher = this.teacherRepository.findById(teacherId).get();
+            }
 
-        if (teacher == null) {
-            System.out.println("Digite o ID do professor que deseja atualizar");
-            Long teacherId = scanner.nextLong();
-            teacher = this.teacherRepository.findById(teacherId).get();
+            System.out.println("Digite o nome do professor para atualizar");
+            String name = scanner.next();
+
+            teacher.setName(name);
+
+            this.teacherRepository.save(teacher);
+
+            System.out.println("Professor foi atualizado no banco de dados.");
+
+            return teacher;
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return teacher;
         }
-
-        System.out.println("Digite o nome do professor para atualizar");
-        String name = scanner.next();
-
-        teacher.setName(name);
-
-        this.teacherRepository.save(teacher);
-
-        System.out.println("Professor foi atualizado no banco de dados.");
-
-        return teacher;
     }
 
     private void delete(Scanner scanner)
@@ -136,8 +140,10 @@ public class TeacherService {
             Long idTeacher = scanner.nextLong();
             Teacher teacher = this.teacherRepository.findById(idTeacher).get();
             this.teacherRepository.delete(teacher);
+            System.out.println("Professor deletado com sucesso!!");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
+
 }

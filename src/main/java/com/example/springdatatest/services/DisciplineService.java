@@ -6,6 +6,7 @@ import com.example.springdatatest.repositories.DisciplineRepository;
 import com.example.springdatatest.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Service
@@ -62,8 +63,8 @@ public class DisciplineService {
 
     private void getAll()
     {
-        Iterable<Discipline> disciplinesIterable = this.disciplineRepository.findAll();
-        for (Discipline discipline : disciplinesIterable) {
+        List<Discipline> disciplineList = this.disciplineRepository.findAll();
+        for (Discipline discipline : disciplineList) {
             System.out.println(discipline);
         }
     }
