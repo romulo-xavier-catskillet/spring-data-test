@@ -17,7 +17,7 @@ public class Discipline {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -27,11 +27,11 @@ public class Discipline {
     @Column(nullable = false)
     private Long code;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id", nullable = true)
     private Teacher teacher;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "disciplines_students", joinColumns = @JoinColumn(name = "discipline_fk"), inverseJoinColumns = @JoinColumn(name = "studant_fk"))
     private List<Student> studentList;
 
@@ -67,6 +67,14 @@ public class Discipline {
         this.teacher = teacher;
     }
 
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
     @Override
     public String toString() {
         return "Discipline{" +
@@ -74,6 +82,7 @@ public class Discipline {
                 ", name='" + name + '\'' +
                 ", code=" + code +
                 ", teacher=" + teacher +
+                ", studentList=" + studentList +
                 '}';
     }
 }

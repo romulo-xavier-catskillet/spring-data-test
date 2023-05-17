@@ -2,6 +2,7 @@ package com.example.springdatatest;
 
 import com.example.springdatatest.entities.Teacher;
 import com.example.springdatatest.services.DisciplineService;
+import com.example.springdatatest.services.StudentService;
 import com.example.springdatatest.services.TeacherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,10 +16,13 @@ public class SpringDataTestApplication implements CommandLineRunner {
 	private TeacherService teacherService;
 	private DisciplineService disciplineService;
 
-	public SpringDataTestApplication(TeacherService teacherService, DisciplineService disciplineService)
+	private StudentService studentService;
+
+	public SpringDataTestApplication(TeacherService teacherService, DisciplineService disciplineService, StudentService studentService)
 	{
 		this.teacherService = teacherService;
 		this.disciplineService = disciplineService;
+		this.studentService = studentService;
 	}
 
 	public static void main(String[] args) {
@@ -36,6 +40,7 @@ public class SpringDataTestApplication implements CommandLineRunner {
 			System.out.println("0 - Sair");
 			System.out.println("1 - Teacher");
 			System.out.println("2 - Discipline");
+			System.out.println("3 - Student");
 
 			int option = scanner.nextInt();
 
@@ -45,6 +50,9 @@ public class SpringDataTestApplication implements CommandLineRunner {
 					break;
 				case 2:
 					this.disciplineService.menu(scanner);
+					break;
+				case 3:
+					this.studentService.menu(scanner);
 					break;
 				default:
 					isTrue = false;

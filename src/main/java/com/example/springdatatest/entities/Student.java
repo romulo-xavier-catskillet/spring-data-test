@@ -7,8 +7,17 @@ import java.util.List;
 @Table(name = "students")
 public class Student {
 
+    public Student()
+    {}
+
+    public Student(String name, Integer age)
+    {
+        this.name = name;
+        this.age = age;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -19,4 +28,46 @@ public class Student {
 
     @ManyToMany(mappedBy = "studentList")
     private List<Discipline> disciplineList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public List<Discipline> getDisciplineList() {
+        return disciplineList;
+    }
+
+    public void setDisciplineList(List<Discipline> disciplineList) {
+        this.disciplineList = disciplineList;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", disciplineList=" + disciplineList +
+                '}';
+    }
 }
