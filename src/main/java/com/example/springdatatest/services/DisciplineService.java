@@ -9,9 +9,7 @@ import com.example.springdatatest.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 @Transactional
@@ -69,15 +67,12 @@ public class DisciplineService {
             }
 
             if (option == 5) {
-                this.registrationStudent(scanner);
-            }
-
-            if (option == 6) {
                 this.delete(scanner);
             }
 
-
-
+            if (option == 6) {
+                this.registrationStudent(scanner);
+            }
         }
     }
 
@@ -127,13 +122,13 @@ public class DisciplineService {
 
     }
 
-    private List<Student> registration(Scanner scanner)
+    private Set<Student> registration(Scanner scanner)
     {
         Boolean isTrue = true;
-        List<Student> studentList = new ArrayList<Student>();
+        Set<Student> studentList = new HashSet<>();
 
         while(isTrue) {
-            System.out.println("ID do aluno a ser matriculado (digite 0 para sair):");
+            System.out.println("Digite o ID do aluno a ser matriculado (digite 0 para sair):");
             Long studentId = scanner.nextLong();
 
             if(studentId > 0) {
@@ -144,7 +139,7 @@ public class DisciplineService {
                 studentList.add(student);
             }
 
-            if (studentId < 11)
+            if (studentId == 0)
             {
                 isTrue = false;
             }
@@ -160,7 +155,7 @@ public class DisciplineService {
         Long disciplineId = scanner.nextLong();
 
         Discipline discipline = this.disciplineRepository.findById(disciplineId).get();
-        List<Student> studentList = this.registration(scanner);
+        Set<Student> studentList = this.registration(scanner);
 
         discipline.getStudentList().addAll(studentList);
         this.disciplineRepository.save(discipline);

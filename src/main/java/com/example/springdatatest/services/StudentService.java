@@ -86,13 +86,15 @@ public class StudentService {
 
         if (student.getDisciplineList() != null) {
             for (Discipline discipline: student.getDisciplineList()) {
+                System.out.println("[");
                 System.out.println("\tID: " + discipline.getId());
                 System.out.println("\tname: " + discipline.getName());
                 System.out.println("\tcode: " + discipline.getCode() + "\n");
+                System.out.println("],");
             }
         }
 
-        System.out.println("]\n}");
+        System.out.println("}");
 
     }
 

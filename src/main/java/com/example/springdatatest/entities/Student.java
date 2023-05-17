@@ -1,7 +1,7 @@
 package com.example.springdatatest.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -27,7 +27,7 @@ public class Student {
     private Integer age;
 
     @ManyToMany(mappedBy = "studentList")
-    private List<Discipline> disciplineList;
+    private Set<Discipline> disciplineList;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class Student {
         this.age = age;
     }
 
-    public List<Discipline> getDisciplineList() {
+    public Set<Discipline> getDisciplineList() {
         return disciplineList;
     }
 
-    public void setDisciplineList(List<Discipline> disciplineList) {
+    public void setDisciplineList(Set<Discipline> disciplineList) {
         this.disciplineList = disciplineList;
     }
 

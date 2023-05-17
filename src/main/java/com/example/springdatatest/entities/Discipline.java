@@ -1,7 +1,7 @@
 package com.example.springdatatest.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "disciplines")
@@ -33,7 +33,7 @@ public class Discipline {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "disciplines_students", joinColumns = @JoinColumn(name = "discipline_fk"), inverseJoinColumns = @JoinColumn(name = "studant_fk"))
-    private List<Student> studentList;
+    private Set<Student> studentList;
 
     public Long getId() {
         return id;
@@ -67,11 +67,11 @@ public class Discipline {
         this.teacher = teacher;
     }
 
-    public List<Student> getStudentList() {
+    public Set<Student> getStudentList() {
         return studentList;
     }
 
-    public void setStudentList(List<Student> studentList) {
+    public void setStudentList(Set<Student> studentList) {
         this.studentList = studentList;
     }
 

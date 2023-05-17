@@ -1,7 +1,7 @@
 package com.example.springdatatest.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
@@ -22,7 +22,7 @@ public class Teacher {
     private String name;
 
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Discipline> disciplineList;
+    private Set<Discipline> disciplineList;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Teacher {
         this.name = name;
     }
 
-    public List<Discipline> getDisciplineList() {
+    public Set<Discipline> getDisciplineList() {
         return disciplineList;
     }
 
-    public void setDisciplineList(List<Discipline> disciplineList) {
+    public void setDisciplineList(Set<Discipline> disciplineList) {
         this.disciplineList = disciplineList;
     }
 
