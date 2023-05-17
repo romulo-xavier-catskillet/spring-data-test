@@ -42,8 +42,9 @@ public class DisciplineService {
             System.out.println("1 - Cadastrar nova disciplina");
             System.out.println("2 - Atualizar disciplina");
             System.out.println("3 - Visualizar todas as disciplinas");
-            System.out.println("4 - Deletar uma disciplina");
-            System.out.println("5 - Matricular aluno");
+            System.out.println("4 - Visualizar uma disciplina específica");
+            System.out.println("5 - Deletar uma disciplina");
+            System.out.println("6 - Matricular aluno");
 
             int option = scanner.nextInt();
 
@@ -64,12 +65,18 @@ public class DisciplineService {
             }
 
             if (option == 4) {
-                this.delete(scanner);
+                this.getDisciplineById(scanner);
             }
 
             if (option == 5) {
                 this.registrationStudent(scanner);
             }
+
+            if (option == 6) {
+                this.delete(scanner);
+            }
+
+
 
         }
     }
@@ -80,6 +87,44 @@ public class DisciplineService {
         for (Discipline discipline : disciplineList) {
             System.out.println(discipline);
         }
+    }
+
+    private void getDisciplineById(Scanner scanner)
+    {
+        System.out.println("Digite o ID da disciplina que deseja pesquisar");
+        Long disciplineId = scanner.nextLong();
+
+        Discipline discipline = this.disciplineRepository.findById(disciplineId).get();
+
+        System.out.println("Disciplina: {");
+        System.out.println("Disciplina ID: " + discipline.getId());
+        System.out.println("Nome da Disciplina: " + discipline.getName());
+        System.out.println("Professor: [");
+
+        if (discipline.getTeacher() != null) {
+            Teacher teacher = discipline.getTeacher();
+            System.out.println("\tID: " + teacher.getId());
+            System.out.println("\tname: " + teacher.getName());
+        }
+
+        System.out.println("]\n");
+
+        System.out.println("Aluno: {");
+
+        if (discipline.getStudentList() != null) {
+            for (Student student: discipline.getStudentList()) {
+                System.out.println("[");
+                System.out.println("\tID: " + student.getId());
+                System.out.println("\tname: " + student.getName());
+                System.out.println("\tage: " + student.getAge());
+                System.out.println("],");
+            }
+        }
+
+        System.out.println("}");
+
+
+
     }
 
     private List<Student> registration(Scanner scanner)
